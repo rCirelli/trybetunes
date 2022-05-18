@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound';
 class App extends React.Component {
   render() {
     return (
-      <main className="bg-slate-900 text-slate-100 w-screen h-screen text-center">
+      <main className="bg-slate-900 text-slate-100 w-screen h-screen">
         <BrowserRouter>
           <Switch>
             <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />
