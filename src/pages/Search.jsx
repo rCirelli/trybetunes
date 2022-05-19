@@ -50,7 +50,7 @@ class Search extends React.Component {
       isLoading,
       searchResults,
       searchedArtist,
-      hasSearched, } = this.state;
+      hasSearched } = this.state;
 
     const formElement = (
       <form action="post">
