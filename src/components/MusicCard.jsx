@@ -1,22 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../heartCheckbox.css';
+import { addSong } from '../services/favoriteSongsAPI';
+import Loading from './Loading';
 
 class MusicCard extends React.Component {
+  state = { isLoading: false, isChecked: false };
+
+  onCheckboxChange = () => {
+    const { musicIndex, musicsArr } = this.props;
+
+    this.setState({ isLoading: true },
+      async () => {
+        await addSong(musicsArr[musicIndex]);
+        this.setState({ isLoading: false, isChecked: true });
+      });
+  };
+
   render() {
-    const { id, trackName, audioPreview } = this.props;
+    const { trackId, trackName, audioPreview, musicIndex, musicsArr } = this.props;
+    const { isLoading, isChecked } = this.state;
+
+    const heartCheckbox = (
+      <div style={ { transform: 'scale(0.22)', marginTop: '4px' } }>
+        <input
+          data-testid={ `checkbox-music-${trackId}` }
+          type="checkbox"
+          name="favorite"
+          id={ trackId }
+          value={ musicsArr[musicIndex] }
+          onChange={ this.onCheckboxChange }
+          checked={ isChecked }
+          className="appearance-none outline-none heartCHeckbox opacity-40"
+        />
+      </div>
+    );
 
     return (
       <div
-        key={ id }
+        key={ trackId }
         className="flex flex-col"
       >
         <p
-          className="mb-1 italic antialiased"
+          className="-mb-3 italic antialiased"
         >
           { trackName }
         </p>
-        <div className="flex items-center">
+        <div className="flex items-center border-b border-sky-600 pb-3">
           <audio
             data-testid="audio-component"
             src={ audioPreview }
@@ -25,16 +55,7 @@ class MusicCard extends React.Component {
           >
             <track kind="captions" />
           </audio>
-          <div style={ { transform: 'scale(0.22)' } }>
-            <input
-              type="checkbox"
-              name="favorite"
-              id={ id }
-              value={ id }
-              className="appearance-none outline-0 heartCHeckbox ml-2"
-            />
-          </div>
-
+          { isLoading ? <Loading /> : heartCheckbox }
         </div>
       </div>
     );
@@ -42,9 +63,11 @@ class MusicCard extends React.Component {
 }
 
 MusicCard.propTypes = {
-  id: PropTypes.number.isRequired,
+  trackId: PropTypes.number.isRequired,
   trackName: PropTypes.string.isRequired,
   audioPreview: PropTypes.string.isRequired,
+  musicIndex: PropTypes.number.isRequired,
+  musicsArr: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default MusicCard;

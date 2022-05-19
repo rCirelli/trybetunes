@@ -46,10 +46,12 @@ class Album extends React.Component {
             className="pl-10 flex flex-col gap-5"
           >
             { albumDetails.filter((_info, i) => i > 0)
-              .map(({ trackName, trackId, previewUrl }) => (
+              .map(({ trackName, trackId, previewUrl }, musicIndex, arr) => (
                 <MusicCard
+                  musicIndex={ musicIndex }
+                  musicsArr={ arr }
                   key={ trackId }
-                  id={ trackId }
+                  trackId={ trackId }
                   trackName={ trackName }
                   audioPreview={ previewUrl }
                 />
