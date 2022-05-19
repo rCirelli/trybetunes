@@ -1,0 +1,34 @@
+.heartCHeckbox {
+  background-color: rgb(71 85 105);
+  height: 50px;
+  outline: none;
+  position: relative;
+  transform: rotate(45deg);
+  width: 50px;
+}
+
+.heartCHeckbox:before {
+  background-color: rgb(71 85 105);
+  border-radius: 75px 75px 0 0;
+  content: '';
+  height: 60%;
+  position: absolute;
+  top: -59%;
+  width: 100%;
+}
+
+.heartCHeckbox:after {
+  background-color: rgb(71 85 105);
+  border-radius: 75px 75px 0 0;
+  content: '';
+  height: 60%;
+  position: absolute;
+  right: 79%;
+  top: 20%;
+  transform: rotate(-90deg);
+  width: 100%;
+}
+
+.heartCHeckbox:checked, .heartCHeckbox:checked:before, .heartCHeckbox:checked:after {
+  background-color: #fe0f42;
+}
