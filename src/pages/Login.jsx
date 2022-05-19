@@ -13,8 +13,6 @@ class Login extends React.Component {
   };
 
   onChangeHandler = ({ target }) => {
-    // const { name } = target;
-    // const { nameInput, validName } = this.state;
     const NAME_MIN_CHARACTER = 3;
     this.setState({ nameInput: target.value },
       () => {
