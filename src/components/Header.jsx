@@ -33,8 +33,8 @@ class Header extends React.Component {
       <div
         data-testid="header-component"
         className="w-screen sticky top-0 flex justify-between
-        items-center px-9 py-5 bg-transparent bg-gradient-to-l from-sky-900 bia
-        border-b border-sky-700"
+        items-center px-9 py-5 bg-transparent bg-gradient-to-l from-sky-900
+        bia to-slate-900 border-b border-sky-700 opacity-95 z-50"
       >
         <div>
           <img src="/assets/trybeTunes.png" alt="trybe tunes" />
