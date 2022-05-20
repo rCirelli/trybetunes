@@ -9,16 +9,15 @@ import Loading from '../components/Loading';
 class Album extends React.Component {
   state = { albumDetails: [], favoriteSongsList: [], isFavLoading: false };
 
-  componentDidMount() {
-    this.updateFavorites();
-  }
-
-  updateFavorites = async () => {
+  async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const albumDetails = await getMusics(id);
 
     this.setState({ albumDetails });
+    this.updateFavorites();
+  }
 
+  updateFavorites = async () => {
     this.setState({ isFavLoading: true },
       async () => {
         const favoriteSongsList = await getFavoriteSongs();

@@ -13,11 +13,6 @@ class MusicCard extends React.Component {
     this.setState({ isChecked: isFavorite });
   }
 
-  componentDidUpdate() {
-    // const { updateFavorites } = this.props;
-    // updateFavorites();
-  }
-
   onCheckboxChange = () => {
     const { musicIndex, musicsArr, updateFavorites } = this.props;
 
@@ -33,7 +28,6 @@ class MusicCard extends React.Component {
           updateFavorites();
         }
         this.setState({ isCheckLoading: false, isChecked: !isChecked });
-        // () => updateFavorites());
       });
   };
 
@@ -42,12 +36,19 @@ class MusicCard extends React.Component {
       trackId,
       trackName,
       audioPreview,
-      isFavorite } = this.props;
+      isFavorite,
+      musicIndex,
+      displayArt,
+      artworkUrl } = this.props;
 
     const { isCheckLoading, isChecked } = this.state;
 
     const heartCheckbox = (
-      <div style={ { transform: 'scale(0.22)', marginTop: '4px' } }>
+      <label
+        htmlFor={ trackId }
+        style={ { transform: 'scale(0.22)', marginBottom: '-1.6rem' } }
+      >
+        <p className="scale-0">Favorita</p>
         <input
           data-testid={ `checkbox-music-${trackId}` }
           type="checkbox"
@@ -58,36 +59,55 @@ class MusicCard extends React.Component {
           className="appearance-none outline-none heartCHeckbox opacity-40"
           onChange={ this.onCheckboxChange }
         />
-      </div>
+      </label>
     );
 
     return (
-      <div
-        key={ trackId }
-        className="flex flex-col"
-      >
-        <p
-          className="-mb-3 italic antialiased"
+      <div className="flex items-center">
+        <div className="w-20 mr-5">
+          {
+            displayArt
+            && <img
+              src={ artworkUrl.replace('100x100', '400x400') }
+              alt={ trackName }
+              className="w-full rounded-2xl outline outline-1 outline-sky-700"
+            />
+          }
+        </div>
+        <div
+          key={ trackId }
+          className="flex flex-col"
         >
-          { trackName }
-        </p>
-        <div className="flex items-center border-b border-sky-600 pb-3">
-          <audio
-            data-testid="audio-component"
-            src={ audioPreview }
-            className="h-7"
-            controls
+          <p
+            className="-mb-1 italic antialiased"
           >
-            <track kind="captions" />
-          </audio>
-          { isCheckLoading ? <CircleLoading /> : heartCheckbox }
+            { !displayArt ? `${musicIndex + 1} - ${trackName}` : trackName }
+          </p>
+          <div className="flex items-end border-b border-sky-600 pb-4 -mb-1">
+            <audio
+              data-testid="audio-component"
+              src={ audioPreview }
+              className="h-7"
+              controls
+            >
+              <track kind="captions" />
+            </audio>
+            { isCheckLoading ? <CircleLoading /> : heartCheckbox }
+          </div>
         </div>
       </div>
     );
   }
 }
 
+MusicCard.defaultProps = {
+  displayArt: false,
+  artworkUrl: '',
+};
+
 MusicCard.propTypes = {
+  displayArt: PropTypes.bool,
+  artworkUrl: PropTypes.string,
   trackId: PropTypes.number.isRequired,
   trackName: PropTypes.string.isRequired,
   audioPreview: PropTypes.string.isRequired,
