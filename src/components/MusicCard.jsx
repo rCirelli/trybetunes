@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../heartCheckbox.css';
-import { addSong } from '../services/favoriteSongsAPI';
-import Loading from './Loading';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import CircleLoading from './CircleLoading';
 
 class MusicCard extends React.Component {
   state = { isCheckLoading: false, isChecked: false };
@@ -13,19 +13,37 @@ class MusicCard extends React.Component {
     this.setState({ isChecked: isFavorite });
   }
 
+  componentDidUpdate() {
+    // const { updateFavorites } = this.props;
+    // updateFavorites();
+  }
+
   onCheckboxChange = () => {
-    const { musicIndex, musicsArr } = this.props;
+    const { musicIndex, musicsArr, updateFavorites } = this.props;
 
     this.setState({ isCheckLoading: true },
       async () => {
-        await addSong(musicsArr[musicIndex]);
-        this.setState({ isCheckLoading: false, isChecked: true });
+        const { isChecked } = this.state;
+
+        if (isChecked) {
+          await removeSong(musicsArr[musicIndex]);
+          updateFavorites();
+        } else {
+          await addSong(musicsArr[musicIndex]);
+          updateFavorites();
+        }
+        this.setState({ isCheckLoading: false, isChecked: !isChecked });
+        // () => updateFavorites());
       });
   };
 
   render() {
     const {
-      trackId, trackName, audioPreview, musicIndex, musicsArr } = this.props;
+      trackId,
+      trackName,
+      audioPreview,
+      isFavorite } = this.props;
+
     const { isCheckLoading, isChecked } = this.state;
 
     const heartCheckbox = (
@@ -35,10 +53,10 @@ class MusicCard extends React.Component {
           type="checkbox"
           name="favorite"
           id={ trackId }
-          value={ musicsArr[musicIndex] }
-          onChange={ this.onCheckboxChange }
+          value={ isFavorite }
           checked={ isChecked }
           className="appearance-none outline-none heartCHeckbox opacity-40"
+          onChange={ this.onCheckboxChange }
         />
       </div>
     );
@@ -62,7 +80,7 @@ class MusicCard extends React.Component {
           >
             <track kind="captions" />
           </audio>
-          { isCheckLoading ? <Loading /> : heartCheckbox }
+          { isCheckLoading ? <CircleLoading /> : heartCheckbox }
         </div>
       </div>
     );
@@ -76,6 +94,7 @@ MusicCard.propTypes = {
   musicIndex: PropTypes.number.isRequired,
   musicsArr: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFavorite: PropTypes.bool.isRequired,
+  updateFavorites: PropTypes.func.isRequired,
 };
 
 export default MusicCard;

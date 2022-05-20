@@ -9,7 +9,11 @@ import Loading from '../components/Loading';
 class Album extends React.Component {
   state = { albumDetails: [], favoriteSongsList: [], isFavLoading: false };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.updateFavorites();
+  }
+
+  updateFavorites = async () => {
     const { match: { params: { id } } } = this.props;
     const albumDetails = await getMusics(id);
 
@@ -70,6 +74,7 @@ class Album extends React.Component {
                         trackId={ trackId }
                         trackName={ trackName }
                         audioPreview={ previewUrl }
+                        updateFavorites={ this.updateFavorites }
                       />
                     );
                   })
