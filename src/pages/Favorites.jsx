@@ -28,7 +28,7 @@ class Favorites extends React.Component {
         <Header />
         <div
           data-testid="page-favorites"
-          className="flex flex-col items-center w-4/5 mx-auto
+          className="flex flex-col items-center w-3/5 mx-auto
             outline outline-offset-2 outline-1 outline-sky-700 rounded-md px-5 m-10"
         >
           <h1 className="text-2xl border-b border-sky-700 py-6 w-full text-center ">

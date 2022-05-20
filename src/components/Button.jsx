@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { text, disabled, id, onClick } = this.props;
+    const { isSubmit, text, disabled, id, onClick } = this.props;
     return (
       <button
         data-testid={ id }
-        type="button"
+        type={ isSubmit ? 'submit' : 'button' }
         disabled={ disabled }
         className="text-white bg-gradient-to-r from-blue-500 via-blue-600
         to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none
@@ -23,7 +23,12 @@ class Button extends React.Component {
   }
 }
 
+Button.defaultProps = {
+  isSubmit: false,
+};
+
 Button.propTypes = {
+  isSubmit: PropTypes.bool,
   text: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,

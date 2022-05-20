@@ -62,26 +62,27 @@ class MusicCard extends React.Component {
       </label>
     );
 
+    const albumArt = (
+      <div className="w-20 mr-5">
+        <img
+          src={ artworkUrl.replace('100x100', '400x400') }
+          alt={ trackName }
+          className="w-full rounded-2xl outline outline-1 outline-sky-700"
+        />
+      </div>
+    );
+
     return (
       <div className="flex items-center">
-        <div className="w-20 mr-5">
-          {
-            displayArt
-            && <img
-              src={ artworkUrl.replace('100x100', '400x400') }
-              alt={ trackName }
-              className="w-full rounded-2xl outline outline-1 outline-sky-700"
-            />
-          }
-        </div>
+        { displayArt && albumArt }
         <div
           key={ trackId }
           className="flex flex-col"
         >
           <p
-            className="-mb-1 italic antialiased"
+            className="-mb-5 italic antialiased"
           >
-            { !displayArt ? `${musicIndex + 1} - ${trackName}` : trackName }
+            { displayArt ? trackName : `${musicIndex + 1} - ${trackName}` }
           </p>
           <div className="flex items-end border-b border-sky-600 pb-4 -mb-1">
             <audio
