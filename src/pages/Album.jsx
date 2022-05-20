@@ -3,19 +3,27 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from '../components/Loading';
 
 class Album extends React.Component {
-  state = { albumDetails: [] };
+  state = { albumDetails: [], favoriteSongsList: [], isFavLoading: false };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const albumDetails = await getMusics(id);
 
     this.setState({ albumDetails });
+
+    this.setState({ isFavLoading: true },
+      async () => {
+        const favoriteSongsList = await getFavoriteSongs();
+        this.setState({ isFavLoading: false, favoriteSongsList });
+      });
   }
 
   renderMusicsElement = () => {
-    const { albumDetails } = this.state;
+    const { albumDetails, favoriteSongsList, isFavLoading } = this.state;
 
     if (albumDetails.length > 0) {
       return (
@@ -45,17 +53,26 @@ class Album extends React.Component {
           <div
             className="pl-10 flex flex-col gap-5"
           >
-            { albumDetails.filter((_info, i) => i > 0)
-              .map(({ trackName, trackId, previewUrl }, musicIndex, arr) => (
-                <MusicCard
-                  musicIndex={ musicIndex }
-                  musicsArr={ arr }
-                  key={ trackId }
-                  trackId={ trackId }
-                  trackName={ trackName }
-                  audioPreview={ previewUrl }
-                />
-              )) }
+            {
+              isFavLoading
+                ? <Loading />
+                : albumDetails.filter((_info, i) => i > 0)
+                  .map(({ trackName, trackId, previewUrl }, musicIndex, arr) => {
+                    const isFavorite = favoriteSongsList
+                      .some((track) => track.trackId === trackId);
+                    return (
+                      <MusicCard
+                        isFavorite={ isFavorite }
+                        musicIndex={ musicIndex }
+                        musicsArr={ arr }
+                        key={ trackId }
+                        trackId={ trackId }
+                        trackName={ trackName }
+                        audioPreview={ previewUrl }
+                      />
+                    );
+                  })
+            }
           </div>
         </div>
       );
