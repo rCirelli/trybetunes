@@ -51,7 +51,8 @@ class Album extends React.Component {
             </h1>
           </div>
           <div
-            className="pl-10 flex flex-col gap-5"
+            className="pl-10 pr-5 flex flex-col gap-5
+            flex flex-col justify-center items-center"
           >
             {
               isFavLoading
