@@ -40,15 +40,15 @@ class Profile extends React.Component {
         </div>
         <div className="flex flex-col items-start gap-5">
           <div>
-            <p>Nome</p>
+            <p className="text-slate-600 italic">Nome</p>
             <p>{ name }</p>
           </div>
           <div>
-            <p>Email</p>
+            <p className="text-slate-600 italic">Email</p>
             <p>{ email }</p>
           </div>
           <div>
-            <p>Descrição</p>
+            <p className="text-slate-600 italic">Descrição</p>
             <p>{ description }</p>
           </div>
         </div>

@@ -24,9 +24,10 @@ class Header extends React.Component {
       <div
         data-testid="header-user-name"
         className="bg-slate-900 outline outline-offset-2 outline-1 outline-sky-500
-        rounded-full py-2 px-7 text-slate-300"
+        rounded-full py-2 px-7 text-slate-300 flex gap-1"
       >
-        <h1>{ `Olá, ${name}` }</h1>
+        <p>Olá, </p>
+        <p>{ name }</p>
       </div>);
 
     return (

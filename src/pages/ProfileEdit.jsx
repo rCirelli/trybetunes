@@ -52,7 +52,6 @@ class ProfileEdit extends React.Component {
       async () => {
         await updateUser(userInfo);
 
-        this.setState({ isLoading: false });
         const { history } = this.props;
         history.push('/profile');
       });

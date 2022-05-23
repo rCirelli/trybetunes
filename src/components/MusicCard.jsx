@@ -79,11 +79,12 @@ class MusicCard extends React.Component {
           key={ trackId }
           className="flex flex-col"
         >
-          <p
-            className="-mb-5 italic antialiased"
+          <span
+            className="-mb-5 italic antialiased flex gap-2 text-slate-300"
           >
-            { displayArt ? trackName : `${musicIndex + 1} - ${trackName}` }
-          </p>
+            <p className="text-slate-500">{ `${musicIndex} .` }</p>
+            <p>{ trackName }</p>
+          </span>
           <div className="flex items-end border-b border-sky-600 pb-4 -mb-1">
             <audio
               data-testid="audio-component"

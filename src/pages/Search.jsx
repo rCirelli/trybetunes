@@ -89,11 +89,13 @@ class Search extends React.Component {
           </h1>
         </div>
         <div>
-          <ul className="flex flex-wrap justify-center items-center gap-10">
+          <ul
+            className="flex flex-wrap justify-center items-center
+            content-center gap-10 px-5"
+          >
             { searchResults.map((result) => (
               <li
                 key={ result.collectionId }
-                className="w-1/5"
               >
                 <AlbumCard
                   collectionId={ result.collectionId }
