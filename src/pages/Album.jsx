@@ -36,8 +36,8 @@ class Album extends React.Component {
         >
           <div className="pr-5 border-r border-sky-700">
             <img
-              src={ albumDetails[0].artworkUrl100.replace('100x100', '250x250') }
-              // src={ albumDetails[0].artworkUrl100 }
+              // src={ albumDetails[0].artworkUrl100.replace('100x100', '250x250') }
+              src={ albumDetails[0].artworkUrl100 }
               alt={ albumDetails[0].collectionName }
             />
             <h2

@@ -18,6 +18,15 @@ class ProfileEdit extends React.Component {
     this.getUserData();
   }
 
+  getUserData = () => {
+    this.setState({ isLoading: true },
+      async () => {
+        const userInfo = await getUser();
+
+        this.setState({ userInfo, isLoading: false });
+      });
+  }
+
   onChangeHandler = ({ target }) => {
     const stateName = target.name;
     const { state } = this;
@@ -54,15 +63,6 @@ class ProfileEdit extends React.Component {
 
         const { history } = this.props;
         history.push('/profile');
-      });
-  }
-
-  getUserData = () => {
-    this.setState({ isLoading: true },
-      async () => {
-        const userInfo = await getUser();
-
-        this.setState({ userInfo, isLoading: false });
       });
   }
 
