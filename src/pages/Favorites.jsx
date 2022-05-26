@@ -43,7 +43,11 @@ class Favorites extends React.Component {
                 ? <Loading />
                 : favoriteSongsList
                   .map((
-                    { trackName, trackId, previewUrl, artworkUrl100 }, musicIndex, arr,
+                    { artistName,
+                      trackName,
+                      trackId,
+                      previewUrl,
+                      artworkUrl100 }, musicIndex, arr,
                   ) => {
                     const isFavorite = favoriteSongsList
                       .some((track) => track.trackId === trackId);
@@ -56,6 +60,7 @@ class Favorites extends React.Component {
                         musicsArr={ arr }
                         key={ trackId }
                         trackId={ trackId }
+                        artistName={ artistName }
                         trackName={ trackName }
                         audioPreview={ previewUrl }
                         updateFavorites={ this.updateFavorites }

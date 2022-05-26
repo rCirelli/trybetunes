@@ -46,10 +46,10 @@ class ProfileEdit extends React.Component {
 
   onButtonClick = (event) => {
     event.preventDefault();
-    const { userInfo } = this.state;
 
     this.setState({ isLoading: true },
       async () => {
+        const { userInfo } = this.state;
         await updateUser(userInfo);
 
         const { history } = this.props;
@@ -76,7 +76,8 @@ class ProfileEdit extends React.Component {
         <form action="submit" className="w-full flex flex-col items-center gap-5 px-10">
           <div className="flex justify-between items-center">
             <img
-              src={ image === !undefined ? image : '/assets/userPlaceholder.png' }
+              src={ image === '' || image === undefined
+                ? '/assets/userPlaceholder.png' : image }
               alt={ name }
               data-testid="profile-image"
               width="140"

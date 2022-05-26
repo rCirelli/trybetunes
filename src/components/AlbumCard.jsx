@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 class AlbumCard extends React.Component {
   render() {
-    const { artistName, collectionId, albumName, albumCover } = this.props;
+    const { collectionId, albumName, albumCover } = this.props;
 
     return (
       <div
         className="outline outline-1 outline-sky-700 rounded-lg text-center
-        pb-4 w-[208px] h-[400px]"
+        pb-4 w-[208px] h-[350px]"
       >
         <div
           className="flex flex-col justify-start items-center w-full h-full gap-4"
@@ -21,7 +21,7 @@ class AlbumCard extends React.Component {
             style={ { maxWidth: '208px', objectFit: 'cover' } }
           />
           <div
-            className="flex flex-col justify-evenly items-center w-full h-full mb-8"
+            className="flex flex-col justify-start items-center w-full h-full mb-8"
           >
             <p
               className="italic antialiased font-bold text-center
@@ -29,7 +29,7 @@ class AlbumCard extends React.Component {
             >
               { albumName }
             </p>
-            <p className="font-thin mb-3 text-base antialiased">{ artistName }</p>
+            {/* <p className="font-thin mb-3 text-base antialiased">{ artistName }</p> */}
           </div>
         </div>
         <Link to={ `/album/${collectionId}` }>
@@ -50,7 +50,6 @@ class AlbumCard extends React.Component {
 }
 
 AlbumCard.propTypes = {
-  artistName: PropType.string.isRequired,
   collectionId: PropType.number.isRequired,
   albumName: PropType.string.isRequired,
   albumCover: PropType.string.isRequired,

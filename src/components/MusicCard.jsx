@@ -34,13 +34,13 @@ class MusicCard extends React.Component {
   render() {
     const {
       trackId,
+      artistName,
       trackName,
       audioPreview,
       isFavorite,
       musicIndex,
       displayArt,
       artworkUrl } = this.props;
-
     const { isCheckLoading, isChecked } = this.state;
 
     const heartCheckbox = (
@@ -82,8 +82,9 @@ class MusicCard extends React.Component {
           <span
             className="-mb-5 italic antialiased flex gap-2 text-slate-300"
           >
-            <p className="text-slate-500">{ `${musicIndex} .` }</p>
+            { !displayArt && <p className="text-slate-500">{ `${musicIndex} .` }</p> }
             <p>{ trackName }</p>
+            { displayArt && <p className="text-slate-600">{ `- ${artistName}` }</p> }
           </span>
           <div className="flex items-end border-b border-sky-600 pb-4 -mb-1">
             <audio
@@ -105,12 +106,14 @@ class MusicCard extends React.Component {
 MusicCard.defaultProps = {
   displayArt: false,
   artworkUrl: '',
+  artistName: '',
 };
 
 MusicCard.propTypes = {
   displayArt: PropTypes.bool,
   artworkUrl: PropTypes.string,
   trackId: PropTypes.number.isRequired,
+  artistName: PropTypes.string,
   trackName: PropTypes.string.isRequired,
   audioPreview: PropTypes.string.isRequired,
   musicIndex: PropTypes.number.isRequired,

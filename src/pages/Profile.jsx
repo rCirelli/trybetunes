@@ -11,7 +11,7 @@ class Profile extends React.Component {
     this.getUserData();
   }
 
-  getUserData = () => {
+  getUserData = async () => {
     this.setState({ isLoading: true },
       async () => {
         const userInfo = await getUser();
@@ -34,7 +34,7 @@ class Profile extends React.Component {
           />
           <MenuButton
             text="Editar perfil"
-            id=""
+            id="edit-button"
             url="/profile/edit"
           />
         </div>

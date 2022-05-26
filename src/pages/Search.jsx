@@ -25,7 +25,7 @@ class Search extends React.Component {
       });
   }
 
-  onButtonClick = async () => {
+  submitSearch = async () => {
     const { searchInput } = this.state;
 
     this.setState({ isLoading: true },
@@ -53,7 +53,7 @@ class Search extends React.Component {
       hasSearched } = this.state;
 
     const formElement = (
-      <form action="post">
+      <form action="post" onSubmit={ this.submitSearch }>
         <div className="w-full flex justify-center self-start">
           <i
             className="fa-solid fa-magnifying-glass fa-lg text-slate-600"
@@ -69,10 +69,11 @@ class Search extends React.Component {
             onChange={ this.onChangeHandler }
           />
           <Button
+            submit
             text="Search"
             disabled={ isButtonDisabled }
             id="search-artist-button"
-            onClick={ this.onButtonClick }
+            onClick={ this.submitSearch }
           />
         </div>
       </form>
@@ -80,11 +81,12 @@ class Search extends React.Component {
 
     const resultList = (
       <div
-        className="mt-10 mx-10 flex flex-col items-center overflow-x-hidden
+        className="mt-10 mx-auto flex flex-col items-center overflow-x-hidden w-5/6
         outline outline-offset-2 outline-1 outline-sky-700 rounded-md pb-10"
       >
-        <div className="mb-10 pb-5 border-b-2 border-sky-700">
-          <h1 className="text-2xl mt-5">
+        <div className="w-full mb-10 pb-5 px-5">
+          <h1 className="text-2xl mt-2 border-b border-sky-700 py-6 w-full text-center">
+
             { `Resultado de álbuns de:  ${searchedArtist}` }
           </h1>
         </div>
@@ -100,7 +102,6 @@ class Search extends React.Component {
                 <AlbumCard
                   collectionId={ result.collectionId }
                   artistId={ result.artistId }
-                  artistName={ result.artistName }
                   albumName={ result.collectionName }
                   albumCover={ result.artworkUrl100 }
                   releaseDate={ result.releaseDate }

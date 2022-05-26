@@ -34,10 +34,10 @@ class Album extends React.Component {
           className="flex justify-center
           outline outline-offset-2 outline-1 outline-sky-700 rounded-md p-5"
         >
-          <div className="pr-5 pr-10 border-r border-sky-700">
+          <div className="pr-5 border-r border-sky-700">
             <img
-              // src={ albumDetails[0].artworkUrl100.replace('100x100', '250x250') }
-              src={ albumDetails[0].artworkUrl100 }
+              src={ albumDetails[0].artworkUrl100.replace('100x100', '250x250') }
+              // src={ albumDetails[0].artworkUrl100 }
               alt={ albumDetails[0].collectionName }
             />
             <h2
