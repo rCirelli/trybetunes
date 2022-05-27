@@ -23,7 +23,7 @@ class ProfileEdit extends React.Component {
       async () => {
         const userInfo = await getUser();
 
-        this.setState({ userInfo, isLoading: false });
+        this.setState({ userInfo, isLoading: false }, () => this.validadeForm());
       });
   }
 
